@@ -1,4 +1,4 @@
-Knockout Interactive Slidese
+Knockout Interactive Slides
 ===========================
 
 A small [KnockoutJS](http://www.knockoutjs.com) application to show a few interactive slides (mostly in German) for a knockout introduction I did at the [WDCM Dresden](http://wdcmdresden.com/24-knockout-und-processwire/) in 2013-05-14.
