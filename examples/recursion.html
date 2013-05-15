@@ -1,0 +1,27 @@
+<input type="button"
+       value="add"
+       data-bind="click: add">
+<input type="button"
+       value="clear"
+       data-bind="click: deleteAll">
+<table>
+  <thead
+     <tr>
+       <th>name</th>
+       <th>value</th>
+     </tr>
+  </thead>
+  <tbody data-bind="foreach: list">
+    <tr>
+      <td><input data-bind="value: name"></td>
+      <td><input data-bind="value: value"></td>
+    </tr>
+  </tbody>
+  <tfoot>
+     <tr>
+       <td>&#x2211;</td>
+       <td data-bind="text: sum"></td>
+     </tr>
+  </tfoot>
+</table>
+</ul>

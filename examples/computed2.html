@@ -1,0 +1,21 @@
+<style>
+input.error {
+    background-color: #FBB;
+}
+</style>
+                  
+<input name="a"
+       type="text"
+       data-bind="value: a,
+                  valueUpdate: 'afterkeydown',
+                  css: {error: isNaN(parseInt(a()))}"
+       size=2/>
+^
+<input name="b"
+       type="text"
+       data-bind="value: b,
+                  valueUpdate: 'afterkeydown',
+                  css: {error: isNaN(parseInt(b()))}"
+       size=2/>
+=
+<span data-bind="text: c, visible: !isNaN(c())"></span>

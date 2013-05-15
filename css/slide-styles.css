@@ -1,0 +1,40 @@
+
+* {
+    font-size: xx-large;
+}
+
+.slidecontainer > div {
+    margin-left: 1em;
+}
+
+.slidecontainer > div > div {
+    margin: 0.5em 0;
+}
+
+iframe {
+    border: none;
+    position:absolute;
+    top: 160px;
+    width:96%;
+    height:500px;
+    left:2%;
+    right:2%;
+}
+
+.slide-controls {
+   position: absolute;
+   right:2%;
+   height:60px;
+   top:50px;
+   width:300px;
+   text-align: right;
+}
+
+.slide-controls span {
+    font-size: small;
+    color: #666;
+}
+
+.slide-controls input {
+    margin-left:15px;
+}

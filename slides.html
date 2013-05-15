@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/kickstart.css" media="all" />
+  <link rel="stylesheet" href="css/slide-styles.css"/>
+  <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript" src="js/knockout-2.2.1.js"></script>
+  <script type="text/javascript" src="js/lodash-1.2.1.js"></script>
+  <script type="text/javascript" src="js/kickstart.js"></script>
+  <script type="text/javascript" src="js/slides.js"></script>
+<style>
+html {
+    background: white no-repeat top center;
+    background-size: 100%;
+    background-image: url(../main-background-bw.jpg);
+    background-position: 0px 100px;
+}
+
+div#bg {
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index:-100;
+    background-image: -webkit-linear-gradient(top, white, white 15%, rgba(255,255,255,0));
+}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<!-- the slides -->
+<script type="template" id="anfang">
+  <h2>Was ist KnockoutJS?</h2>
+  <div style="margin:3em">
+    Eine Javascript Bibliothek zum <em>verdrahten</em> von Nutzerschnittstellen
+  </div>
+</script>
+
+<script type="template" id="helloworld">
+  <h2>Hä?</h2>
+  <iframe src="splitscreen.html#helloworld"></iframe>
+</script>
+
+<script type="template" id="databinding">
+  <h2>Data-Binding</h2>
+  <iframe src="splitscreen.html#databinding"></iframe>
+</script>
+
+<script type="template" id="observable">
+  <h2>Observables!</h2>
+  <iframe src="splitscreen.html#observable"></iframe>
+</script>
+
+<script type="template" id="computed">
+  <h2>Computed</h2>
+  <iframe src="splitscreen.html#computed"></iframe>
+</script>
+
+<script type="template" id="computed-2">
+  <h2>Computed (2)</h2>
+  <iframe src="splitscreen.html#computed2"></iframe>
+</script>
+
+<script type="template" id="arrays">
+  <h2>Arrays</h2>
+  <iframe src="splitscreen.html#arrays"></iframe>
+</script>
+
+<script type="template" id="recursion">
+  <h2>Recursion</h2>
+  <iframe src="splitscreen.html#recursion"></iframe>
+</script>
+
+<script type="template" id="ende">
+  <h2>und mehr ... </h2>
+  
+  <div>
+    <div>MIT Lizenz, minimale Abhängigkeiten, riesen Doku & Tutorials</div>
+    <div><a href="http://knockoutjs.com">http://knockoutjs.com</a></div>
+    <div style="font-family:monospace">ko.toJS; ko.fromJS</div>
+    <div>Ausgereift (1.0 vor 3 Jahren)</div>
+  </div>
+</script>
+
+<script type="template" id="danke">
+  <h2>Danke, Fragen?</h2>
+</script>
+
+<div class="slidecontainer" data-bind="template: {name: function() { return currentSlideName() } }">
+</div>
+
+<div class="slide-controls">
+<div>
+  <input value="prev" type="button" data-bind="click: prev">
+  <input value="next" type="button" data-bind="click: next">
+</div>
+<div>
+  <span data-bind="text: prevSlideName"></span>
+  <span>&gt;</span>
+  <span data-bind="text: currentSlideName"></span>
+  <span>&gt;</span>
+  <span data-bind="text: nextSlideName"></span>
+</div>
+</div>
+
+</body>
+</html>

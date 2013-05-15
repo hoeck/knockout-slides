@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/kickstart.css" media="all" />
+  <!-- <link rel="stylesheet" href="css/slide-styles.css"/> -->
+  <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript" src="js/knockout-2.2.1.js"></script>
+  <script type="text/javascript" src="js/lodash-1.2.1.js"></script>
+  <!-- <script type="text/javascript" src="js/kickstart.js"></script> -->
+
+  <!-- CodeMirror -->
+  <script type="text/javascript" src="codemirror/lib/codemirror.js"></script>
+  <script type="text/javascript" src="codemirror/mode/xml/xml.js"></script>
+  <script type="text/javascript" src="codemirror/mode/javascript/javascript.js"></script>
+  <script type="text/javascript" src="codemirror/mode/css/css.js"></script>
+  <script type="text/javascript" src="codemirror/mode/htmlmixed/htmlmixed.js"></script>
+  <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+  <style type=text/css>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    * {
+        font-size: x-large;
+    }
+
+    #tabs {
+      float:left;
+      width:60%;
+    }
+
+    #tabs .tab-content {
+      padding-left: 0;
+      padding-right: 0;
+      height: 368px;
+    }
+
+    .CodeMirror pre {
+      box-shadow: none;
+      -webkit-box-shadow: none;
+    }
+
+    iframe {
+      height: 400px;
+      float:right;
+      width:38%;
+      background-color:white;
+      border: 1px solid #E5E5E5;
+      margin-left: 2%;
+      margin-top: 10px;
+    }
+    </style>
+</head>
+<body>
+    <div id="tabs">
+      <ul class="tabs left">
+        <li class="first" data-bind="css: {current: currentTab() == 'js'}"><a data-bind="click: function() { viewmodel.currentTab('js'); jsEditor.refresh(); }">JS</a></li>
+        <li class="last" data-bind="css: {current: currentTab() == 'markup'}"><a data-bind="click: function() { viewmodel.currentTab('markup'); markupEditor.refresh(); }">Markup</a></li>
+      </ul>
+
+      <div id="js" class="tab-content" data-bind="visible: currentTab() == 'js'">
+        <textarea id="code-js" name="code" style="display: none; "></textarea>
+      </div>
+      <div id="markup" class="tab-content" data-bind="visible: currentTab() == 'markup'">
+        <textarea id="code-markup" name="code" style="display: none; "></textarea>
+      </div>
+    </div>
+
+    <iframe id="preview"></iframe>
+
+<script type="template" id="content-header">
+<html>
+<head>
+  <link rel="stylesheet" href="css/kickstart.css" media="all" />
+  <link rel="stylesheet" href="css/slide-styles.css" />
+  <script type="text/javascript" src="js/jquery-1.9.1.min.js">XX/script>
+  <script type="text/javascript" src="js/knockout-2.2.1.js">XX/script>
+  <script type="text/javascript" src="js/lodash-1.2.1.js">XX/script>
+  <script type="text/javascript" src="js/kickstart.js">XX/script>
+<style>
+input {
+    width: 6em;
+}
+</style>
+</head>
+<body>
+</script>
+
+<script type="text/javascript">
+var delay;
+var markupEditor = CodeMirror.fromTextArea(document.getElementById('code-markup'), {
+    mode: 'text/html',
+    tabMode: 'indent',
+    lineNumbers: true,
+    lineWrapping: true,
+});
+
+markupEditor.on("change", function() {
+    clearTimeout(delay);
+    delay = setTimeout(updatePreview, 300);
+});
+
+var jsEditor = CodeMirror.fromTextArea(document.getElementById('code-js'), {
+    mode: 'text/javascript',
+    tabMode: 'indent',
+    lineNumbers: true,
+    lineWrapping: true,
+});
+jsEditor.on("change", function() {
+    clearTimeout(delay);
+    delay = setTimeout(updatePreview, 300);
+});
+
+function updatePreview() {
+    var previewFrame = document.getElementById('preview');
+    var preview = previewFrame.contentDocument ||  previewFrame.contentWindow.document;
+    preview.open();
+    preview.write(document.getElementById('content-header').innerText.replace(/XX/g, "<"));
+    preview.write(markupEditor.getValue());
+    preview.write('<script type="text/javascript">');
+    preview.write(jsEditor.getValue());
+    preview.write('<');
+    preview.write('/script></body></html>');
+    preview.close();
+};
+setTimeout(updatePreview, 300);
+
+var loadExample = function(exampleName) {
+    $.get('examples/' + exampleName + ".js", {}, function(data) {
+        console.log("loadExample", "js");
+        jsEditor.setValue(data);
+        jsEditor.refresh();
+    }, "html");
+
+    $.get('examples/' + exampleName + ".html", {}, function(data) {
+        console.log("loadExample", "html");
+        markupEditor.setValue(data);
+        markupEditor.refresh();
+    }, "html");
+
+};
+
+//var examples = ["helloworld", "observables"];
+var ViewModel = function() {
+    var self = this;
+    self.currentTab = ko.observable("js");
+};
+var viewmodel = new ViewModel()
+ko.applyBindings(viewmodel);
+
+$(window).on("hashchange", function() {
+    loadExample(window.location.hash.substring(1));
+});
+loadExample(window.location.hash.substring(1));
+
+</script>
+</body>
+</html>

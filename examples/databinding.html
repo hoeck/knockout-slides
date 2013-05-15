@@ -1,0 +1,24 @@
+<h5>text</h5>
+<span data-bind="text: a"></span>
+<span data-bind="text: b"></span>
+
+<h5>value</h5>
+<input value="(maxlength)"
+       data-bind="attr: {'maxlength': maxlength}"/>
+
+<input value="(error)"
+       data-bind="css: {error: error}"
+       />
+
+<h5>value</h5>
+<div style="background-color: #BFB"
+     data-bind="visible: visible">
+  visible
+</div>
+
+<h5>options</h5>
+<select data-bind="value: selected,
+                   options: items,
+                   optionsText: 'name',
+                   optionsValue: 'id'">
+</select>
